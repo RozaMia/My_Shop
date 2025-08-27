@@ -18,17 +18,23 @@ function performSearch() {
                    let card = document.createElement('div')
                    card.className = 'card'
                    card.innerHTML = `
-                   <h4>${product['title']}</h4>
-                   <p>${product['price']}</p>
+                   <img src="/media/${product['photo']}" alt="${product['title']}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                   <div class="placeholder-image" style="display:none; width:100px; height:100px; background:#f0f0f0; border-radius:8px; align-items:center; justify-content:center; color:#999; font-size:12px; text-align:center; flex-shrink:0; border:1px solid #eee;">
+                       <span>Нет фото</span>
+                   </div>
+                   <div class="card-content">
+                       <h4>${product['title']}</h4>
+                       <p>${product['price']} ₽</p>
+                   </div>
                    `
                    resultsContainer.appendChild(card)
                 })
             }
         },
+        'error': function() {
+            resultsContainer.innerHTML = '<div class="no-results">Ошибка при поиске</div>';
+        }
     });
-
-
-    resultsContainer.innerHTML = '<div class="no-results">Ничего не найдено</div>';
 }
 
 // Поиск при нажатии Enter
